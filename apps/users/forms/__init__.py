@@ -1,0 +1,1 @@
+from apps.users.forms.user_registration_form import RegistrationUserForm

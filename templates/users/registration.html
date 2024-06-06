@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+    
+        <input type="hidden" name="next" value="{{ next }}">
+        <div class="form-error">{{ form.non_field_errors }}</div>
+    
+        <!-- Form Fields-->
+        {% for f in form %}
+            <div class="users-form">
+                <label for="{{ f.id_for_label }}" class="user-label">{{ f.label }}</label>
+                <p>{{ f }}</p>
+            </div>
+            <div class="form-error">{{ f.errors|linebreaks }}</div>
+        {% endfor %}
+
+        <!-- Block button -->
+        <button type="submit"> Registration</button>
+
+    </form>
+{% endblock %}

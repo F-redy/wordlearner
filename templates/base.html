@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {{ title|default:'Learning English' }}{% endblock %}</title>
+
+    <!-- Styles -->
+    {% include 'included/styles.html' %}
+
+</head>
+<body>
+<!-- Navigation bar-->
+{% block navigation %}{% endblock %}
+
+<!-- Content -->
+{% block content %}{% endblock %}
+
+<!-- Footer -->
+{% block footer %}{% endblock %}
+
+</body>
+</html>
