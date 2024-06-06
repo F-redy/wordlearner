@@ -5,7 +5,7 @@ from django.contrib.auth.forms import AuthenticationForm
 
 
 class AuthenticationUserForm(AuthenticationForm):
-    email = forms.EmailField(
+    username = forms.EmailField(
         label=_('Email'),
         widget=forms.TextInput(
             attrs={
@@ -25,4 +25,4 @@ class AuthenticationUserForm(AuthenticationForm):
 
     class Meta:
         model = get_user_model()
-        fields = ('email', 'password')
+        fields = ('username', 'password')
