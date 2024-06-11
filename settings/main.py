@@ -60,6 +60,8 @@ REST_FRAMEWORK = {
     'TEST_REQUEST_DEFAULT_FORMAT': 'json',
 }
 
+AUTH_USER_MODEL = 'users.User'
+
 if settings.DEBUG:
     INSTALLED_APPS += [
         'debug_toolbar',
