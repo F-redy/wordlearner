@@ -2,7 +2,9 @@ FROM python:3.12-slim AS builder
  
 WORKDIR /code
 
-RUN python3 -m venv venv
+RUN apt-get update && \
+    apt-get install -y mc && \
+    python3 -m venv venv
 
 ENV VIRTUAL_ENV=/code/venv
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
