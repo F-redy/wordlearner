@@ -4,7 +4,7 @@ line_length = 120
 order_by_type = false
 profile = 'black'
 
-[tool.poetry]
+[tool.isort]
 name = "uacraft-be"
 version = "0.1.0"
 description = ""
