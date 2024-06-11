@@ -31,7 +31,13 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = env('DJANGO_ALLOWED_HOSTS',  'localhost,127.0.0.1,[::1]').split(',')
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    'craft-land-top-student-4ee3c794.koyeb.app',
+    'drf-on-koyeb.craft-land.koyeb',
+    '[::1]'
+]
 
 # Application definition
 
