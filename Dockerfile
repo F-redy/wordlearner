@@ -1,9 +1,9 @@
-FROM python:3-alpine AS builder
+FROM python:3.12-slim AS builder
  
-WORKDIR /app
+WORKDIR /code
  
 RUN python3 -m venv venv
-ENV VIRTUAL_ENV=/app/venv
+ENV VIRTUAL_ENV=/code/venv
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
  
 COPY requirements requirements
@@ -13,12 +13,12 @@ RUN pip install --upgrade pip && \
 # Stage 2
 FROM python:3-alpine AS runner
  
-WORKDIR /app
+WORKDIR /code
  
-COPY --from=builder /app/venv venv
+COPY --from=builder /code/venv venv
 COPY apps apps
  
-ENV VIRTUAL_ENV=/app/venv
+ENV VIRTUAL_ENV=/code/venv
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 ENV PORT=8000
  
