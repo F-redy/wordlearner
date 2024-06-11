@@ -1,7 +1,12 @@
 FROM python:3-alpine AS builder
  
 WORKDIR /code
- 
+
+RUN apt-get update && apt-get install -y \
+    libpq-dev gcc \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* \
+
 RUN python3 -m venv venv
 ENV VIRTUAL_ENV=/code/venv
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
