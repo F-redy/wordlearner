@@ -18,7 +18,7 @@ RUN pip install --upgrade pip && \
     pip install -r requirements/development.txt --no-cache-dir
  
 # Stage 2
-FROM python:3-alpine AS runner
+FROM python:3.12-slim AS runner
  
 WORKDIR /code
  
