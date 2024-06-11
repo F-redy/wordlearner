@@ -1,4 +1,4 @@
-# Stage 1: Builder
+# Этап 1: Builder
 FROM python:3.12-slim AS builder
 
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -19,7 +19,7 @@ RUN poetry config virtualenvs.create false && poetry install
 
 COPY . .
 
-# Stage 2: Runner
+# Этап 2: Runner
 FROM python:3.12-slim AS runner
 
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -29,6 +29,8 @@ ENV PORT=8000
 WORKDIR /code
 
 COPY --from=builder /code /code
+
+RUN pip install gunicorn
 
 EXPOSE ${PORT}
 
