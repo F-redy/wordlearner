@@ -1,37 +1,26 @@
-# Этап 1: Builder
-FROM python:3.12-slim AS builder
-
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
-
-WORKDIR /code
-
-RUN apt-get update && apt-get install -y \
-    libpq-dev gcc \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
-
-RUN pip install --upgrade pip && pip install poetry
-
-COPY pyproject.toml poetry.lock ./
-
-RUN poetry config virtualenvs.create false && poetry install
-
-COPY . .
-
-# Этап 2: Runner
-FROM python:3.12-slim AS runner
-
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+FROM python:3-alpine AS builder
+ 
+WORKDIR /app
+ 
+RUN python3 -m venv venv
+ENV VIRTUAL_ENV=/app/venv
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+ 
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+ 
+# Stage 2
+FROM python:3-alpine AS runner
+ 
+WORKDIR /app
+ 
+COPY --from=builder /app/venv venv
+COPY apps apps
+ 
+ENV VIRTUAL_ENV=/app/venv
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 ENV PORT=8000
-
-WORKDIR /code
-
-COPY --from=builder /code /code
-
-RUN pip install gunicorn
-
+ 
 EXPOSE ${PORT}
-
+ 
 CMD gunicorn --bind :${PORT} --workers 2 apps.wsgi
