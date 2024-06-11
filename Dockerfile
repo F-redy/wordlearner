@@ -1,16 +1,16 @@
-FROM python:3-alpine AS builder
- 
+# Stage 1: Builder
+FROM python:3.12-slim AS builder
+
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
 WORKDIR /code
 
 RUN apt-get update && apt-get install -y \
     libpq-dev gcc \
     && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /var/lib/apt/lists/*
 
-RUN python3 -m venv venv
-ENV VIRTUAL_ENV=/code/venv
-ENV PATH="$VIRTUAL_ENV/bin:$PATH"
- 
 RUN pip install --upgrade pip && pip install poetry
 
 COPY pyproject.toml poetry.lock ./
@@ -18,19 +18,18 @@ COPY pyproject.toml poetry.lock ./
 RUN poetry config virtualenvs.create false && poetry install
 
 COPY . .
- 
-# Stage 2
-FROM python:3-alpine AS runner
- 
-WORKDIR /code
- 
-COPY --from=builder /code/venv venv
-COPY apps apps
- 
-ENV VIRTUAL_ENV=/code/venv
-ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+
+# Stage 2: Runner
+FROM python:3.12-slim AS runner
+
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
 ENV PORT=8000
- 
+
+WORKDIR /code
+
+COPY --from=builder /code /code
+
 EXPOSE ${PORT}
- 
+
 CMD gunicorn --bind :${PORT} --workers 2 apps.wsgi
