@@ -32,4 +32,4 @@ COPY --from=builder /code /code
 
 EXPOSE ${PORT}
 
-CMD gunicorn --bind :${PORT} --workers 2 apps.wsgi
+CMD ["gunicorn", "--bind", ":${PORT}", "--workers", "2", "apps.wsgi:application"]
