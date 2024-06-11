@@ -17,8 +17,7 @@ FROM python:3.12-slim AS runner
 WORKDIR /code
  
 COPY --from=builder /code/venv venv
-COPY apps apps
-COPY settings settings
+COPY . .
 
 ENV VIRTUAL_ENV=/code/venv
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
