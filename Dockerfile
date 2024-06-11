@@ -24,7 +24,8 @@ WORKDIR /code
  
 COPY --from=builder /code/venv venv
 COPY apps apps
- 
+COPY settings settings
+
 ENV VIRTUAL_ENV=/code/venv
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 ENV PORT=8000
