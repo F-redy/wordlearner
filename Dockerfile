@@ -6,8 +6,9 @@ RUN python3 -m venv venv
 ENV VIRTUAL_ENV=/app/venv
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
  
-COPY requirements .
-RUN pip install -r requirements/development.txt
+COPY requirements requirements
+RUN pip install --upgrade pip && \
+    pip install -r requirements/development.txt --no-cache-dir
  
 # Stage 2
 FROM python:3-alpine AS runner
