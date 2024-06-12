@@ -49,6 +49,11 @@ CORS_ALLOWED_ORIGINS = [
     'https://drf-on-koyeb.craft-land.koyeb',
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://craft-land-top-student-4ee3c794.koyeb.app',
+    'https://drf-on-koyeb.craft-land.koyeb',
+]
+
 # DRF
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
