@@ -15,7 +15,7 @@ INSTALLED_APPS += [
 
 MIDDLEWARE += [
     'corsheaders.middleware.CorsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 # Cors headers
